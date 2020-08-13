@@ -76,5 +76,4 @@ function removeFormElement(elem) {
         kanban.removeElement(elem);
         clickCount = 0 ;
     }
-
 }
