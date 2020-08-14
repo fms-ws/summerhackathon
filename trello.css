@@ -69,5 +69,31 @@ body{
 
 .title{
     float: left;
-    width: 300px;
+    width: 400px;
+}
+
+.taskTitle{
+    position: relative;
+}
+
+.title_button{
+	position: absolute;
+	top: 50%;
+	left: 90%;
+	-webkit-transform : translate(-50%, -50%);
+	transform : translate(-50%, -50%);
+	text-align: center;
+}
+
+.taskDetail{
+    position: relative;
+}
+
+.detail_button{
+	position: absolute;
+	top: 90%;
+	left: 50%;
+	-webkit-transform : translate(-50%, -50%);
+	transform : translate(-50%, -50%);
+	text-align: center;
 }

@@ -41,11 +41,11 @@ const kanban = new jKanban({
 });
 
 
-//const boardparent = document.getElementById("taskboard"); 
+const boardparent = document.getElementById("taskboard"); 
 //console.log(boardparent.childNodes[0].childNodes[1].childNodes[0].childNodes[1]);
 //boardparent.removeChild(boardparent.childNodes[0].childNodes[1].childNodes[0].childNodes[1]);
-document.getElementsByTagName('button')[2].remove();
-document.getElementsByTagName('button')[1].remove();
+boardparent.getElementsByTagName('button')[2].remove();
+boardparent.getElementsByTagName('button')[1].remove();
     
 
 //タスク追加用の関数
@@ -129,19 +129,26 @@ function taskDisply(elem) {
     childdate.id = "taskDate";
     childdate.className = "taskDate";
 
-    const title_edit_button = document.createElement("button");
-    title_edit_button.innerText = "タスク名の編集";
-    title_edit_button.id = "title_button";
     const title = document.createElement("p");
     title.innerText = elem.innerText;
-    title.id = "title";
+    title.className = "title";
+    const title_edit_button = document.createElement("button");
+    title_edit_button.innerText = "編集";
+    title_edit_button.className = "title_button";
+
+
+    const detail_edit_button = document.createElement("button");
+    detail_edit_button.innerText = "編集";
+    detail_edit_button.className = "detail_button";
+    
     const date = document.createElement("p");
     date.innerText = elem.dataset.date;
-    
+
     childtitle.appendChild(title);
     childtitle.appendChild(title_edit_button);
+    childdetail.appendChild(detail_edit_button);
     childdate.appendChild(date);
-    
+
     taskwindow.appendChild(childtitle);
     taskwindow.appendChild(childdetail);
     taskwindow.appendChild(childdate);
