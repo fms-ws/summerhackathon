@@ -96,9 +96,11 @@ function removeFormElement(elem) {
         if(document.getElementById('taskTitle')){
             const tasktitle = document.getElementById('taskTitle');  
             const taskdetail = document.getElementById('taskDetail');
+            const tasktime = document.getElementById('taskTime');
             const taskdate = document.getElementById('taskDate');
             taskwindow.removeChild(tasktitle);
             taskwindow.removeChild(taskdetail);
+            taskwindow.removeChild(tasktime);
             taskwindow.removeChild(taskdate);
         }
         kanban.removeElement(elem);
@@ -107,6 +109,9 @@ function removeFormElement(elem) {
 
 }
 
+var hour = "0";
+var min = "0";
+var sec = "0";
 
 //タスクウィンドウの生成  
 const taskwindow=document.getElementById('taskwindow'); 
@@ -114,9 +119,11 @@ function taskDisply(elem) {
     if(document.getElementById('taskTitle')){
         const tasktitle = document.getElementById('taskTitle');  
         const taskdetail = document.getElementById('taskDetail');
+        const tasktime = document.getElementById('taskTime');
         const taskdate = document.getElementById('taskDate');
         taskwindow.removeChild(tasktitle);
         taskwindow.removeChild(taskdetail);
+        taskwindow.removeChild(tasktime);
         taskwindow.removeChild(taskdate);
     }
     const childtitle = document.createElement("div");
@@ -125,6 +132,9 @@ function taskDisply(elem) {
     const childdetail = document.createElement("div");
     childdetail.id = "taskDetail";
     childdetail.className = "taskDetail";
+    const childtime = document.createElement("div");
+    childtime.id = "taskTime";
+    childtime.className = "taskTime";
     const childdate = document.createElement("div");
     childdate.id = "taskDate";
     childdate.className = "taskDate";
@@ -140,17 +150,22 @@ function taskDisply(elem) {
     const detail_edit_button = document.createElement("button");
     detail_edit_button.innerText = "編集";
     detail_edit_button.className = "detail_button";
-    
+
+    const time = document.createElement("p");
+    time.innerText = "タスク経過時間 : "+hour+':'+min+':'+sec;
+
     const date = document.createElement("p");
     date.innerText = elem.dataset.date;
 
     childtitle.appendChild(title);
     childtitle.appendChild(title_edit_button);
     childdetail.appendChild(detail_edit_button);
+    childtime.appendChild(time);
     childdate.appendChild(date);
 
     taskwindow.appendChild(childtitle);
     taskwindow.appendChild(childdetail);
+    taskwindow.appendChild(childtime);
     taskwindow.appendChild(childdate);
 
 }; 
