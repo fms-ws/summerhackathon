@@ -59,7 +59,6 @@ function addFormElement(id) {
     formItem.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const ;
         kanban.addElement(id, {"title": e.target[0].value}); //入力された文字列をタスクとして登録
         formItem.parentNode.removeChild(formItem); //入力ボックスを非表示にするために削除
     }) 
@@ -83,8 +82,12 @@ function removeFormElement(elem) {
     // ダブルクリックの場合
     } else {
         if(document.getElementById('taskdetail')){
-            const taskdetail = document.getElementById('taskdetail');  
+            const tasktitle = document.getElementById('taskTitle');  
+            const taskdetail = document.getElementById('taskDetail');
+            const taskdate = document.getElementById('taskDate');
+            taskwindow.removeChild(tasktitle);
             taskwindow.removeChild(taskdetail);
+            taskwindow.removeChild(taskdate);
         }
         kanban.removeElement(elem);
         clickCount = 0 ;
@@ -96,9 +99,13 @@ function removeFormElement(elem) {
 //タスクウィンドウの生成  
 const taskwindow=document.getElementById('taskwindow'); 
 function taskDisply(elem) {
-    if(document.getElementById('taskdetail')){
-        const taskdetail = document.getElementById('taskdetail');  
+    if(document.getElementById('taskTitle')){
+        const tasktitle = document.getElementById('taskTitle');  
+        const taskdetail = document.getElementById('taskDetail');
+        const taskdate = document.getElementById('taskDate');
+        taskwindow.removeChild(tasktitle);
         taskwindow.removeChild(taskdetail);
+        taskwindow.removeChild(taskdate);
     }
     const childtitle = document.createElement("div");
     childtitle.id = "taskTitle";
