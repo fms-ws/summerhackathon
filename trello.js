@@ -36,7 +36,8 @@ const kanban = new jKanban({
     addItemButton   : true,         //タスク追加用のボタンを表示
     //click: (elem) => kanban.removeElement(elem),
     click: (elem) => removeFormElement(elem),
-    buttonClick: (elem, id) => addFormElement(id) //タスク追加用の関数を指定
+    buttonClick: (elem, id) => addFormElement(id), //タスク追加用の関数を指定
+    dropEl: (elem, target, source, sibling)=> dargstart(elem,target)
 });
 
 
@@ -140,3 +141,36 @@ function taskDisply(elem) {
     taskwindow.appendChild(childdate);
 
 }; 
+
+function dargstart(el, target){
+    var starttime;
+    if(target.parentElement.getAttribute('data-id')=='sample-board-2'){
+        starttime = Date.now();
+        //console.log(el);
+        startwatch(el,starttime);
+    }else if(target.parentElement.getAttribute('data-id')=='sample-board-3'){
+        clearTimeout(timerId);
+    }
+}
+
+var time;
+var timerId;
+var restarttime = 0;
+function startwatch(el, starttime){
+    //var starttime;
+    timecount();
+    function timeConversion(){
+        var hour = Math.floor(time/1000/60/60);
+        var min = Math.floor((time/60/1000)%60);
+        var sec = Math.floor((time/1000)%60);
+        console.log(el);
+        console.log(hour+':'+min+':'+sec);
+    }
+    function timecount(){
+        timerId = setTimeout(function(){
+            time = Date.now() - starttime + restarttime;
+            timeConversion();
+            timecount();
+        },1000);
+    }
+}
