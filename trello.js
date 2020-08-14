@@ -38,11 +38,9 @@ const kanban = new jKanban({
     addItemButton   : true,         //タスク追加用のボタンを表示
     //click: (elem) => kanban.removeElement(elem),
     click: (elem) => removeFormElement(elem),
-    buttonClick: (elem, id) => addFormElement(id) //タスク追加用の関数を指定
+    buttonClick: (elem, id) => addFormElement(id), //タスク追加用の関数を指定
 });
-    
-      
-      
+
 //タスク追加用の関数
 function addFormElement(id) {
     const formItem = document.createElement('form');
@@ -62,8 +60,6 @@ function addFormElement(id) {
 var clickCount = 0 ;
 //タスク削除用の関数
 function removeFormElement(elem) {
-    console.log(elem);
-    
     // シングルクリックの場合
     if( !clickCount) {
         ++clickCount ;
@@ -76,5 +72,4 @@ function removeFormElement(elem) {
         kanban.removeElement(elem);
         clickCount = 0 ;
     }
-
 }
