@@ -1,11 +1,3 @@
-//日時の取得
-var today=new Date();
-var year = today.getFullYear();
-var month = today.getMonth()+1;
-var week = today.getDay();
-var day = today.getDate();
-var week_ja= new Array("日","月","火","水","木","金","土");   
-
 //初期状態のタスク管理ボード用JSONデータ
 const defaultBoards = [
     {
@@ -30,7 +22,7 @@ const defaultBoards = [
         "id": "sample-board-3",
         "title": "完了",
         "class": "done",
-        "item": [{ "title": "日報の提出"}]
+        "item": [{"title": "日報の提出", "date": "aaa"}]
     }
 ];
    
@@ -50,6 +42,7 @@ const kanban = new jKanban({
 
 //タスク追加用の関数
 function addFormElement(id) {
+    if(id === "sample-board-1"){
     const formItem = document.createElement('form');
   
     formItem.innerHTML = '<input type="text">';  //タスクを追加するための入力ボックスを作成
@@ -59,9 +52,20 @@ function addFormElement(id) {
     formItem.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        kanban.addElement(id, {"title": e.target[0].value}); //入力された文字列をタスクとして登録
+        //日時の取得
+        var today=new Date();
+        var year = today.getFullYear();
+        var month = today.getMonth()+1;
+        var week = today.getDay();
+        var day = today.getDate();
+        var hour = today.getHours()
+        var minute = today.getMinutes()
+        var week_ja= new Array("日","月","火","水","木","金","土");   
+
+        kanban.addElement(id, {"title": e.target[0].value, "date": "追加日 ： "+year+"年"+month+"月"+day+"日 "+week_ja[week]+"曜日 "+hour+"時"+minute+"分"}); //入力された文字列をタスクとして登録
         formItem.parentNode.removeChild(formItem); //入力ボックスを非表示にするために削除
     }) 
+}
 }   
 
 
@@ -120,7 +124,8 @@ function taskDisply(elem) {
     const title = document.createElement("h2");
     title.innerText = elem.innerText;
     const date = document.createElement("p");
-    date.innerText = "追加日　：　"+year+"年"+month+"月"+day+"日 "+week_ja[week]+"曜日";
+    date.innerText = elem.dataset.date;
+
     childtitle.appendChild(title);
     childdate.appendChild(date);
     taskwindow.appendChild(childtitle);
