@@ -8,7 +8,7 @@ const defaultBoards = [
         "dragTo": ['sample-board-2', 'sample-board-3'], 
         "item": [
             { "title": "報告書の作成" },
-            { "title": "13時から打ち合わせ" }
+            { "title": "14時から打ち合わせ" }
         ]
     },
   
@@ -26,20 +26,20 @@ const defaultBoards = [
         "item": [{ "title": "日報の提出", "date": "8月12日" }]
     }
 ];
-  
-  
+   
   
 //jKanbanのインスタンス作成
 const kanban = new jKanban({
-    element         : '#myKanban',  //タスク管理ボードを表示するHTML要素
+    element         : '#taskboard',  //タスク管理ボードを表示するHTML要素
     gutter          : '15px',       //ボード同士の間隔
     widthBoard      : '300px',      //ボードのサイズ
     boards          : defaultBoards,//初期状態のJSONデータ
     addItemButton   : true,         //タスク追加用のボタンを表示
     //click: (elem) => kanban.removeElement(elem),
     click: (elem) => removeFormElement(elem),
-    buttonClick: (elem, id) => addFormElement(id), //タスク追加用の関数を指定
+    buttonClick: (elem, id) => addFormElement(id) //タスク追加用の関数を指定
 });
+    
 
 //タスク追加用の関数
 function addFormElement(id) {
@@ -57,19 +57,48 @@ function addFormElement(id) {
     }) 
 }   
 
-var clickCount = 0 ;
+
 //タスク削除用の関数
+var clickCount = 0 ;
 function removeFormElement(elem) {
+    console.log(elem);
+    
     // シングルクリックの場合
     if( !clickCount) {
         ++clickCount ;
+        taskDisply(elem);
         setTimeout( function() {
             clickCount = 0 ;
+            
         }, 350 ) ;
 
     // ダブルクリックの場合
     } else {
+        if(document.getElementById('taskdetail')){
+            const taskdetail = document.getElementById('taskdetail');  
+            taskwindow.removeChild(taskdetail);
+        }
         kanban.removeElement(elem);
         clickCount = 0 ;
     }
+
 }
+
+
+//タスクウィンドウの生成  
+const taskwindow=document.getElementById('taskwindow'); 
+function taskDisply(elem) {
+    if(document.getElementById('taskdetail')){
+        const taskdetail = document.getElementById('taskdetail');  
+        taskwindow.removeChild(taskdetail);
+    }
+    const child = document.createElement("div");
+    child.id = "taskdetail";
+    child.className = "taskdetail";
+
+    const title = document.createElement("h2");
+    title.innerText = elem.innerText;
+    child.appendChild(title);
+    taskwindow.appendChild(child);
+
+}; 

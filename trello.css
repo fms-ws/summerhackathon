@@ -28,3 +28,21 @@ h1 {
 body{
     background-color: #66CCFF;
 }  
+
+.taskboard{
+    float: left;
+}
+.taskwindow{
+    float: left;
+    width: 33%;
+    height: 500px;
+
+}
+
+.taskdetail{
+    height: 500px;
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+}
+
