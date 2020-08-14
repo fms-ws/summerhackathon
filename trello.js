@@ -39,7 +39,6 @@ const kanban = new jKanban({
     //click: (elem) => kanban.removeElement(elem),
     click: (elem) => removeFormElement(elem),
     buttonClick: (elem, id) => addFormElement(id), //タスク追加用の関数を指定
-    mouseHover:(elem) => readElement(elem)
 });
 
 //タスク追加用の関数
@@ -73,10 +72,4 @@ function removeFormElement(elem) {
         kanban.removeElement(elem);
         clickCount = 0 ;
     }
-}
-
-function readElement(elem){
-    elem.addEventListener("mouseover", function (event) {
-        console.log(elem);
-        }, false);
 }
