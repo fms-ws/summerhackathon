@@ -129,13 +129,19 @@ function taskDisply(elem) {
     childdate.id = "taskDate";
     childdate.className = "taskDate";
 
-    const title = document.createElement("h2");
+    const title_edit_button = document.createElement("button");
+    title_edit_button.innerText = "タスク名の編集";
+    title_edit_button.id = "title_button";
+    const title = document.createElement("p");
     title.innerText = elem.innerText;
+    title.id = "title";
     const date = document.createElement("p");
     date.innerText = elem.dataset.date;
-
+    
     childtitle.appendChild(title);
+    childtitle.appendChild(title_edit_button);
     childdate.appendChild(date);
+    
     taskwindow.appendChild(childtitle);
     taskwindow.appendChild(childdetail);
     taskwindow.appendChild(childdate);

@@ -1,3 +1,5 @@
+
+
 .task {
     background-color: #FF0000;
     color: #ffffff;
@@ -35,7 +37,7 @@ body{
 .taskwindow{
     float: left;
     width: 470px;
-    height: 500px;
+    height: 700px;
 
 }
 
@@ -49,7 +51,7 @@ body{
 }
 
 .taskDetail{
-    height: 300px;
+    height: 600px;
     background-color: #ffffff;
     color: #000000;
     text-align: center;
@@ -63,4 +65,9 @@ body{
     color: #000000;
     text-align: center;
     border: solid 3px  #000000;
+}
+
+.title{
+    float: left;
+    width: 300px;
 }
