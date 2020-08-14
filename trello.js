@@ -85,7 +85,7 @@ function removeFormElement(elem) {
 
     // ダブルクリックの場合
     } else {
-        if(document.getElementById('taskdetail')){
+        if(document.getElementById('taskTitle')){
             const tasktitle = document.getElementById('taskTitle');  
             const taskdetail = document.getElementById('taskDetail');
             const taskdate = document.getElementById('taskDate');
