@@ -34,15 +34,33 @@ body{
 }
 .taskwindow{
     float: left;
-    width: 33%;
+    width: 470px;
     height: 500px;
 
 }
 
-.taskdetail{
-    height: 500px;
+.taskTitle{
+    height: 50px;
     background-color: #ffffff;
     color: #000000;
     text-align: center;
+    border: solid 3px  #000000;
+    border-bottom: 0px;
 }
 
+.taskDetail{
+    height: 300px;
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    border: solid 3px  #000000;
+    border-bottom: 0px;
+}
+
+.taskDate{
+    height: 50px;
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    border: solid 3px  #000000;
+}
