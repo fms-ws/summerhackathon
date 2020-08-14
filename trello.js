@@ -38,6 +38,13 @@ const kanban = new jKanban({
     click: (elem) => removeFormElement(elem),
     buttonClick: (elem, id) => addFormElement(id) //タスク追加用の関数を指定
 });
+
+
+//const boardparent = document.getElementById("taskboard"); 
+//console.log(boardparent.childNodes[0].childNodes[1].childNodes[0].childNodes[1]);
+//boardparent.removeChild(boardparent.childNodes[0].childNodes[1].childNodes[0].childNodes[1]);
+document.getElementsByTagName('button')[2].remove();
+document.getElementsByTagName('button')[1].remove();
     
 
 //タスク追加用の関数
