@@ -8,7 +8,7 @@ const defaultBoards = [
         "dragTo": ['sample-board-2', 'sample-board-3'], 
         "item": [
             { "title": "報告書の作成" },
-            { "title": "14時から打ち合わせ" }
+            { "title": "13時から打ち合わせ" }
         ]
     },
   
