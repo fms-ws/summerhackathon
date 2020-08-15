@@ -85,13 +85,13 @@ function removeFormElement(elem) {
             const tasktitle = document.getElementById('taskTitle');  
             if(tasktitle.childNodes[0].innerText === elem.innerText){
                 const tasktitle = document.getElementById('taskTitle');  
-                const taskdetail = document.getElementById('taskDetail');
                 const tasktime = document.getElementById('taskTime');
                 const taskdate = document.getElementById('taskDate');
+                const taskdetail = document.getElementById('taskDetail');
                 taskwindow.removeChild(tasktitle);
-                taskwindow.removeChild(taskdetail);
                 taskwindow.removeChild(tasktime);
                 taskwindow.removeChild(taskdate);
+                taskwindow.removeChild(taskdetail);
             }
             else{
                 taskDisply(elem);
@@ -109,13 +109,13 @@ function removeFormElement(elem) {
     } else {
         if(document.getElementById('taskTitle')){
             const tasktitle = document.getElementById('taskTitle');  
-            const taskdetail = document.getElementById('taskDetail');
             const tasktime = document.getElementById('taskTime');
             const taskdate = document.getElementById('taskDate');
+            const taskdetail = document.getElementById('taskDetail');
             taskwindow.removeChild(tasktitle);
-            taskwindow.removeChild(taskdetail);
             taskwindow.removeChild(tasktime);
             taskwindow.removeChild(taskdate);
+            taskwindow.removeChild(taskdetail);
         }
         kanban.removeElement(elem);
         clickCount = 0 ;
@@ -130,26 +130,26 @@ const taskwindow=document.getElementById('taskwindow');
 function taskDisply(elem) {
     if(document.getElementById('taskTitle')){
         const tasktitle = document.getElementById('taskTitle');  
-        const taskdetail = document.getElementById('taskDetail');
         const tasktime = document.getElementById('taskTime');
         const taskdate = document.getElementById('taskDate');
+        const taskdetail = document.getElementById('taskDetail');
         taskwindow.removeChild(tasktitle);
-        taskwindow.removeChild(taskdetail);
         taskwindow.removeChild(tasktime);
         taskwindow.removeChild(taskdate);
+        taskwindow.removeChild(taskdetail);
     }
     const childtitle = document.createElement("div");
     childtitle.id = "taskTitle";
     childtitle.className = "taskTitle";
-    const childdetail = document.createElement("div");
-    childdetail.id = "taskDetail";
-    childdetail.className = "taskDetail";
     const childtime = document.createElement("div");
     childtime.id = "taskTime";
     childtime.className = "taskTime";
     const childdate = document.createElement("div");
     childdate.id = "taskDate";
     childdate.className = "taskDate";
+    const childdetail = document.createElement("div");
+    childdetail.id = "taskDetail";
+    childdetail.className = "taskDetail";
 
     //タイトルの要素
     const title = document.createElement("p");
@@ -161,7 +161,19 @@ function taskDisply(elem) {
     title_edit_button.className = "title_button";
     title_edit_button.id = "title_button";
 
+    //経過時間の要素
+    const time = document.createElement("p");
+    time.innerText = "タスク経過時間 : "+hour+':'+min+':'+sec;
+
+    //追加日の要素
+    const date = document.createElement("p");
+    date.innerText = elem.dataset.date;
+
     //内容の要素
+    const detail_header = document.createElement("h2");
+    detail_header.innerText = "タスクの詳細";
+    detail_header.className = "detail_header";
+    detail_header.id = "detail_header";
     const detail = document.createElement("p");
     detail.innerText = "";
     detail.className = "detail";
@@ -171,25 +183,18 @@ function taskDisply(elem) {
     detail_edit_button.className = "detail_button";
     detail_edit_button.id = "detail_button";
 
-    //経過時間の要素
-    const time = document.createElement("p");
-    time.innerText = "タスク経過時間 : "+hour+':'+min+':'+sec;
-
-    //追加日の要素
-    const date = document.createElement("p");
-    date.innerText = elem.dataset.date;
-
     childtitle.appendChild(title);
     childtitle.appendChild(title_edit_button);
-    childdetail.appendChild(detail);
-    childdetail.appendChild(detail_edit_button);
     childtime.appendChild(time);
     childdate.appendChild(date);
+    childdetail.appendChild(detail_header);
+    childdetail.appendChild(detail);
+    childdetail.appendChild(detail_edit_button);
 
     taskwindow.appendChild(childtitle);
-    taskwindow.appendChild(childdetail);
     taskwindow.appendChild(childtime);
     taskwindow.appendChild(childdate);
+    taskwindow.appendChild(childdetail);
 
     title_button_click();
     detail_button_click();
@@ -250,8 +255,6 @@ function detail_button_click(){
                 e.preventDefault();
                 const form_text_area = document.getElementById("form_text_area");
                 const text_area = document.getElementById("text_area");
-                console.log(text_area.value);
-                console.log(form_text_submit);
                 const detail = document.createElement("p");
                 detail.innerText = text_area.value;
                 detail.className = "detail";
