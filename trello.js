@@ -77,20 +77,10 @@ function addFormElement(id) {
 
 //タスク削除用の関数
 var clickCount = 0 ;
-let countId=0;
 function removeFormElement(elem) {
-    
     // シングルクリックの場合
     if( !clickCount) {
         ++clickCount ;
-        if(elem.id === ""){
-            elem.setAttribute("id","kanban-item"+countId);
-            console.log(elem.id);
-            countId++;
-        }else{
-            console.log("idふってあるよ");
-        }
-        
         if(document.getElementById('taskTitle')){
             const tasktitle = document.getElementById('taskTitle');  
             if(tasktitle.childNodes[0].innerText === elem.innerText){
