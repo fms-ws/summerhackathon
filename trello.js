@@ -86,7 +86,7 @@ function removeFormElement(elem) {
     // シングルクリックの場合
     if( !clickCount) {
         if(elem.id===""){
-            elem.setAttribute("id",countId);
+            elem.setAttribute("id","kanban-item"+countId);
             console.log(elem.id);
         }else{
             console.log("ok");
