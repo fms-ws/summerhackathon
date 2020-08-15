@@ -86,10 +86,11 @@ function removeFormElement(elem) {
         if(elem.id === ""){
             elem.setAttribute("id","kanban-item"+countId);
             console.log(elem.id);
+            countId++;
         }else{
             console.log("idふってあるよ");
         }
-        countId++;
+        
         if(document.getElementById('taskTitle')){
             const tasktitle = document.getElementById('taskTitle');  
             if(tasktitle.childNodes[0].innerText === elem.innerText){
