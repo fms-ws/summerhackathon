@@ -6,8 +6,8 @@ const defaultBoards = [
         "class": "task",
         "dragTo": ['sample-board-2', 'sample-board-3'], 
         "item": [
-            { "title": "報告書の作成" },
-            { "title": "14時から打ち合わせ" }
+            { "title": "報告書の作成", "date":"追加日 ： 2020年8月15日 土曜日 12時41分"},
+            { "title": "14時から打ち合わせ" , "date":"追加日 ： 2020年8月15日 土曜日 12時41分"}
         ]
     },
   
@@ -15,14 +15,14 @@ const defaultBoards = [
         "id": "sample-board-2",
         "title": "進行中",
         "class": "progress",
-        "item": [{ "title": "○○案の企画書作成" }]
+        "item": [{ "title": "○○案の企画書作成" , "date":"追加日 ： 2020年8月15日 土曜日 12時41分"}]
     },
   
     {
         "id": "sample-board-3",
         "title": "完了",
         "class": "done",
-        "item": [{"title": "日報の提出", "date": "aaa"}]
+        "item": [{"title": "日報の提出", "date":"追加日 ： 2020年8月15日 土曜日 12時41分"}]
     }
 ];
    
@@ -85,7 +85,26 @@ function removeFormElement(elem) {
     // シングルクリックの場合
     if( !clickCount) {
         ++clickCount ;
-        taskDisply(elem);
+
+        if(document.getElementById('taskTitle')){
+            const tasktitle = document.getElementById('taskTitle');  
+            if(tasktitle.childNodes[0].innerText === elem.innerText){
+                const tasktitle = document.getElementById('taskTitle');  
+                const taskdetail = document.getElementById('taskDetail');
+                const tasktime = document.getElementById('taskTime');
+                const taskdate = document.getElementById('taskDate');
+                taskwindow.removeChild(tasktitle);
+                taskwindow.removeChild(taskdetail);
+                taskwindow.removeChild(tasktime);
+                taskwindow.removeChild(taskdate);
+            }
+            else{
+                taskDisply(elem);
+            }
+        }
+        else{
+            taskDisply(elem);
+        }
         setTimeout( function() {
             clickCount = 0 ;
             
@@ -109,9 +128,7 @@ function removeFormElement(elem) {
 
 }
 
-var hour = "0";
-var min = "0";
-var sec = "0";
+
 
 //タスクウィンドウの生成  
 const taskwindow=document.getElementById('taskwindow'); 
@@ -139,6 +156,7 @@ function taskDisply(elem) {
     childdate.id = "taskDate";
     childdate.className = "taskDate";
 
+    //タイトルの要素
     const title = document.createElement("p");
     title.innerText = elem.innerText;
     title.className = "title";
@@ -146,14 +164,16 @@ function taskDisply(elem) {
     title_edit_button.innerText = "編集";
     title_edit_button.className = "title_button";
 
-
+    //内容の要素
     const detail_edit_button = document.createElement("button");
     detail_edit_button.innerText = "編集";
     detail_edit_button.className = "detail_button";
 
+    //経過時間の要素
     const time = document.createElement("p");
     time.innerText = "タスク経過時間 : "+hour+':'+min+':'+sec;
 
+    //追加日の要素
     const date = document.createElement("p");
     date.innerText = elem.dataset.date;
 
@@ -170,14 +190,23 @@ function taskDisply(elem) {
 
 }; 
 
+//タスク経過時間の計算
+var t_count = 0 ;
+if(t_count===0){
+    var hour = "0";
+    var min = "0";
+    var sec = "0";
+}
 function dargstart(el, target){
     var starttime;
     if(target.parentElement.getAttribute('data-id')=='sample-board-2'){
         starttime = Date.now();
         //console.log(el);
         startwatch(el,starttime);
+        t_count=1;
     }else if(target.parentElement.getAttribute('data-id')=='sample-board-3'){
         clearTimeout(timerId);
+        t_count=0;
     }
 }
 
