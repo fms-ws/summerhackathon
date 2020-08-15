@@ -65,6 +65,19 @@ h1 {
     border: solid 3px  #000000;
     border-bottom: 0px;
 }
+.taskData span{
+    color:#000000;
+    padding:auto 0;
+}
+
+.deadLine{
+    height: 50px;
+    background-color: #AEFFBD;
+    color: #000000;
+    text-align: center;
+    border: solid 3px  #000000;
+    border-bottom: 0px;
+}
 
 .taskDetail{
     height: 500px;

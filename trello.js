@@ -88,9 +88,11 @@ function removeFormElement(elem) {
                 const tasktime = document.getElementById('taskTime');
                 const taskdate = document.getElementById('taskDate');
                 const taskdetail = document.getElementById('taskDetail');
+                const deadLine = document.getElementById('deadLine');
                 taskwindow.removeChild(tasktitle);
                 taskwindow.removeChild(tasktime);
                 taskwindow.removeChild(taskdate);
+                taskwindow.removeChild(deadLine);
                 taskwindow.removeChild(taskdetail);
             }
             else{
@@ -112,9 +114,11 @@ function removeFormElement(elem) {
             const tasktime = document.getElementById('taskTime');
             const taskdate = document.getElementById('taskDate');
             const taskdetail = document.getElementById('taskDetail');
+            const deadLine = document.getElementById('deadLine');
             taskwindow.removeChild(tasktitle);
             taskwindow.removeChild(tasktime);
             taskwindow.removeChild(taskdate);
+            taskwindow.removeChild(deadLine);
             taskwindow.removeChild(taskdetail);
         }
         kanban.removeElement(elem);
@@ -133,10 +137,13 @@ function taskDisply(elem) {
         const tasktime = document.getElementById('taskTime');
         const taskdate = document.getElementById('taskDate');
         const taskdetail = document.getElementById('taskDetail');
+        const deadLine = document.getElementById('deadLine');
         taskwindow.removeChild(tasktitle);
         taskwindow.removeChild(tasktime);
         taskwindow.removeChild(taskdate);
+        taskwindow.removeChild(deadLine);
         taskwindow.removeChild(taskdetail);
+        
     }
     const childtitle = document.createElement("div");
     childtitle.id = "taskTitle";
@@ -150,6 +157,9 @@ function taskDisply(elem) {
     const childdetail = document.createElement("div");
     childdetail.id = "taskDetail";
     childdetail.className = "taskDetail";
+    const deadLine =document.createElement("div");
+    deadLine.id="deadLine";
+    deadLine.className="deadLine";
 
     //タイトルの要素
     const title = document.createElement("p");
@@ -164,6 +174,26 @@ function taskDisply(elem) {
     //経過時間の要素
     const time = document.createElement("p");
     time.innerText = "タスク経過時間 : "+elem.dataset.times;
+
+    //締め切りの要素
+    const deadLineText = document.createElement("span");
+    const deadLineHour =document.createElement("select");
+    deadLineHour.setAttribute("id","deadLineHour");
+    const deadLineMinute =document.createElement("select");
+    deadLineMinute.setAttribute("id","deadLineMinute");
+    const deadLineHourOption=[];
+    const deadLineMinuteOption=[];
+    for(let i= 0; i<24;i++){
+        deadLineHourOption[i]=document.createElement("option");
+        deadLineHourOption[i].setAttribute("value",i);
+        deadLineHourOption[i].innerText= i+"時間";
+    }
+    for(let i= 0; i<60;i++){
+        deadLineMinuteOption[i]=document.createElement("option");
+        deadLineMinuteOption[i].setAttribute("value",i);
+        deadLineMinuteOption[i].innerText= i+"分";
+    }
+    deadLineText.innerText = "期限：";
 
     //追加日の要素
     const date = document.createElement("p");
@@ -190,11 +220,23 @@ function taskDisply(elem) {
     childdetail.appendChild(detail_header);
     childdetail.appendChild(detail);
     childdetail.appendChild(detail_edit_button);
+    
+    deadLine.appendChild(deadLineText);
+    deadLine.appendChild(deadLineHour);
+    for(let i=0;i<24;i++){
+        deadLineHour.appendChild(deadLineHourOption[i]);
+    }
+    deadLine.appendChild(deadLineMinute);
+    for(let i=0;i<59;i++){
+        deadLineMinute.appendChild(deadLineMinuteOption[i]);
+    }
 
     taskwindow.appendChild(childtitle);
     taskwindow.appendChild(childtime);
     taskwindow.appendChild(childdate);
+    taskwindow.appendChild(deadLine);
     taskwindow.appendChild(childdetail);
+    
 
     title_button_click(elem);
     detail_button_click(elem);
