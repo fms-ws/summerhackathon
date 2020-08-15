@@ -305,8 +305,12 @@ function startwatch(el){
         var hour = Math.floor(time/1000/60/60);
         var min = Math.floor((time/60/1000)%60);
         var sec = Math.floor((time/1000)%60);
-        console.log(el);
-        console.log(hour+':'+min+':'+sec);
+        //console.log(el);
+        //console.log(hour+':'+min+':'+sec);
+        //経過時間で警告
+        if(sec===5){
+            sound();
+        }
         task_elem.dataset.times=hour+':'+min+':'+sec;
     }
     function timecount(){
@@ -316,4 +320,8 @@ function startwatch(el){
             timecount();
         },1000);
     }
+}
+function sound(){
+    document.getElementById( 'sound-file' ).play() ;
+    alert("休憩したら？？");
 }
