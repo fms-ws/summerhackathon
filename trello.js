@@ -6,8 +6,8 @@ const defaultBoards = [
         "class": "task",
         "dragTo": ['sample-board-2', 'sample-board-3'], 
         "item": [
-            { "title": "報告書の作成", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":" ","end":" "},
-            { "title": "14時から打ち合わせ" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":" ","end":" "}
+            { "title": "報告書の作成", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" "},
+            { "title": "14時から打ち合わせ" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" "}
         ]
     },
   
@@ -15,14 +15,14 @@ const defaultBoards = [
         "id": "sample-board-2",
         "title": "進行中",
         "class": "progress",
-        "item": [{ "title": "○○案の企画書作成" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":" ","end":" "}]
+        "item": [{ "title": "○○案の企画書作成" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" "}]
     },
   
     {
         "id": "sample-board-3",
         "title": "完了",
         "class": "done",
-        "item": [{"title": "日報の提出", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":" ","end":" "}]
+        "item": [{"title": "日報の提出", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" "}]
     }
 ];
    
@@ -69,7 +69,8 @@ function addFormElement(id) {
         var minute = today.getMinutes()
         var week_ja= new Array("日","月","火","水","木","金","土");   
 
-        kanban.addElement(id, {"title": e.target[0].value, "date": "タスク追加日 ： "+year+"年"+month+"月"+day+"日 "+week_ja[week]+"曜日 "+hour+"時"+minute+"分", "detail":" "}); //入力された文字列をタスクとして登録
+        kanban.addElement(id, {"title": e.target[0].value, "date": "タスク追加日 ： "+year+"年"+month+"月"+day+"日 "+week_ja[week]+"曜日 "+hour+"時"+minute+"分",
+         "detail":" ", "st":" ", "times":"0:0:0","end":" "}); //入力された文字列をタスクとして登録
         formItem.parentNode.removeChild(formItem); //入力ボックスを非表示にするために削除
     }) 
 }
@@ -112,6 +113,8 @@ function removeFormElement(elem) {
             const tasktime = document.getElementById('taskTime');
             const taskdate = document.getElementById('taskDate');
             const taskdetail = document.getElementById('taskDetail');
+            const task_elem = document.getElementById(elem.id);
+            clearTimeout(task_elem.dataset.end);
             taskwindow.removeChild(tasktitle);
             taskwindow.removeChild(tasktime);
             taskwindow.removeChild(taskdate);
@@ -317,10 +320,13 @@ function startwatch(el){
         task_elem.dataset.end = setTimeout(function(){
             time = Date.now() - task_elem.dataset.st;
             timeConversion();
+            console.log(task_elem.innerText+': '+task_elem.dataset.times);
             timecount();
         },1000);
     }
 }
+
+
 function sound(){
     //音なるので鳴らしたいとき、アラートしたもらいたいときは↓のコメントアウト外す。
     //document.getElementById( 'sound-file' ).play() ;
