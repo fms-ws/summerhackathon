@@ -6,8 +6,8 @@ const defaultBoards = [
         "class": "task",
         "dragTo": ['sample-board-2', 'sample-board-3'], 
         "item": [
-            { "title": "報告書の作成", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" "},
-            { "title": "14時から打ち合わせ" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" "}
+            { "title": "報告書の作成", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":" ","end":" "},
+            { "title": "14時から打ち合わせ" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":" ","end":" "}
         ]
     },
   
@@ -15,14 +15,14 @@ const defaultBoards = [
         "id": "sample-board-2",
         "title": "進行中",
         "class": "progress",
-        "item": [{ "title": "○○案の企画書作成" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" "}]
+        "item": [{ "title": "○○案の企画書作成" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":" ","end":" "}]
     },
   
     {
         "id": "sample-board-3",
         "title": "完了",
         "class": "done",
-        "item": [{"title": "日報の提出", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" "}]
+        "item": [{"title": "日報の提出", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":" ","end":" "}]
     }
 ];
    
@@ -163,7 +163,7 @@ function taskDisply(elem) {
 
     //経過時間の要素
     const time = document.createElement("p");
-    time.innerText = "タスク経過時間 : "+hour+':'+min+':'+sec;
+    time.innerText = "タスク経過時間 : "+elem.dataset.times;
 
     //追加日の要素
     const date = document.createElement("p");
@@ -279,24 +279,26 @@ function detail_button_click(elem){
 }
 
 //タスク経過時間の計算
-    var hour = "0";
-    var min = "0";
-    var sec = "0";
+var hour = "0";
+var min = "0";
+var sec = "0";
 function dargstart(el, target){
     var starttime;
+    const task_elem = document.getElementById(el.id);
     if(target.parentElement.getAttribute('data-id')=='sample-board-2'){
         starttime = Date.now();
-        //console.log(el);
-        startwatch(el,starttime);
+        task_elem.dataset.st=starttime;
+        console.log(el);
+        startwatch(el);
     }else if(target.parentElement.getAttribute('data-id')=='sample-board-3'){
-        clearTimeout(timerId);
+        clearTimeout(task_elem.dataset.end);
     }
 }
 
 var time;
 var timerId;
-var restarttime = 0;
-function startwatch(el, starttime){
+function startwatch(el){
+    const task_elem = document.getElementById(el.id);
     //var starttime;
     timecount();
     function timeConversion(){
@@ -305,10 +307,11 @@ function startwatch(el, starttime){
         var sec = Math.floor((time/1000)%60);
         console.log(el);
         console.log(hour+':'+min+':'+sec);
+        task_elem.dataset.times=hour+':'+min+':'+sec;
     }
     function timecount(){
-        timerId = setTimeout(function(){
-            time = Date.now() - starttime + restarttime;
+        task_elem.dataset.end = setTimeout(function(){
+            time = Date.now() - task_elem.dataset.st;
             timeConversion();
             timecount();
         },1000);
