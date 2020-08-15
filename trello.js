@@ -322,6 +322,7 @@ function startwatch(el){
     }
 }
 function sound(){
-    document.getElementById( 'sound-file' ).play() ;
+    //音なるので鳴らしたいときは↓のコメントアウト外す。
+    //document.getElementById( 'sound-file' ).play() ;
     alert("休憩したら？？");
 }
