@@ -175,7 +175,7 @@ function taskDisply(elem) {
     detail_header.className = "detail_header";
     detail_header.id = "detail_header";
     const detail = document.createElement("p");
-    detail.innerText = "";
+    detail.innerText = elem.dataset.detail;
     detail.className = "detail";
     detail.id = "detail";
     const detail_edit_button = document.createElement("button");
@@ -196,17 +196,18 @@ function taskDisply(elem) {
     taskwindow.appendChild(childdate);
     taskwindow.appendChild(childdetail);
 
-    title_button_click();
-    detail_button_click();
+    title_button_click(elem);
+    detail_button_click(elem);
 
 }; 
 
 //タスクタイトルの編集
-function title_button_click(){
+function title_button_click(elem){
     if(document.getElementById("title_button")){
         document.getElementById("title_button").onclick = function(){
             const tasktitle = document.getElementById('taskTitle');  
             const title_edit_button = document.getElementById('title_button');  
+            const task_elem = document.getElementById(elem.id); 
             const title = document.getElementById('title');
             tasktitle.removeChild(title_edit_button);
             tasktitle.removeChild(title);
@@ -216,6 +217,7 @@ function title_button_click(){
 
             formItem.addEventListener('submit', (e) => {
                 e.preventDefault();
+                task_elem.innerText = e.target[0].value;
                 const title = document.createElement("p");
                 title.innerText = e.target[0].value;
                 title.className = "title";
@@ -235,12 +237,13 @@ function title_button_click(){
 }
 
 //タスク内容の編集
-function detail_button_click(){
+function detail_button_click(elem){
     if(document.getElementById("detail_button")){
         document.getElementById("detail_button").onclick = function(){
             const taskdetail = document.getElementById('taskDetail');  
             const detail_edit_button = document.getElementById('detail_button');  
             const detail = document.getElementById('detail');
+            const task_elem = document.getElementById(elem.id); 
             taskdetail.removeChild(detail_edit_button);
             taskdetail.removeChild(detail);
             const form_text_area = document.createElement('form');
@@ -255,8 +258,9 @@ function detail_button_click(){
                 e.preventDefault();
                 const form_text_area = document.getElementById("form_text_area");
                 const text_area = document.getElementById("text_area");
+                task_elem.dataset.detail = text_area.value;
                 const detail = document.createElement("p");
-                detail.innerText = text_area.value;
+                detail.innerText = task_elem.dataset.detail;
                 detail.className = "detail";
                 detail.id = "detail";
                 const detail_edit_button = document.createElement("button");
