@@ -6,8 +6,8 @@ const defaultBoards = [
         "class": "task",
         "dragTo": ['sample-board-2', 'sample-board-3'], 
         "item": [
-            { "title": "報告書の作成", "date":"追加日 ： 2020年8月15日 土曜日 12時41分"},
-            { "title": "14時から打ち合わせ" , "date":"追加日 ： 2020年8月15日 土曜日 12時41分"}
+            { "title": "報告書の作成", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" "},
+            { "title": "14時から打ち合わせ" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" "}
         ]
     },
   
@@ -15,14 +15,14 @@ const defaultBoards = [
         "id": "sample-board-2",
         "title": "進行中",
         "class": "progress",
-        "item": [{ "title": "○○案の企画書作成" , "date":"追加日 ： 2020年8月15日 土曜日 12時41分"}]
+        "item": [{ "title": "○○案の企画書作成" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" "}]
     },
   
     {
         "id": "sample-board-3",
         "title": "完了",
         "class": "done",
-        "item": [{"title": "日報の提出", "date":"追加日 ： 2020年8月15日 土曜日 12時41分"}]
+        "item": [{"title": "日報の提出", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" "}]
     }
 ];
    
@@ -50,7 +50,6 @@ boardparent.getElementsByTagName('button')[1].remove();
 
 //タスク追加用の関数
 function addFormElement(id) {
-    if(id === "sample-board-1"){
     const formItem = document.createElement('form');
   
     formItem.innerHTML = '<input type="text">';  //タスクを追加するための入力ボックスを作成
@@ -70,17 +69,15 @@ function addFormElement(id) {
         var minute = today.getMinutes()
         var week_ja= new Array("日","月","火","水","木","金","土");   
 
-        kanban.addElement(id, {"title": e.target[0].value, "date": "追加日 ： "+year+"年"+month+"月"+day+"日 "+week_ja[week]+"曜日 "+hour+"時"+minute+"分"}); //入力された文字列をタスクとして登録
+        kanban.addElement(id, {"title": e.target[0].value, "date": "タスク追加日 ： "+year+"年"+month+"月"+day+"日 "+week_ja[week]+"曜日 "+hour+"時"+minute+"分", "detail":" "}); //入力された文字列をタスクとして登録
         formItem.parentNode.removeChild(formItem); //入力ボックスを非表示にするために削除
     }) 
 }
-}   
 
 
 //タスク削除用の関数
 var clickCount = 0 ;
 function removeFormElement(elem) {
-    console.log(elem);
     
     // シングルクリックの場合
     if( !clickCount) {
@@ -163,11 +160,16 @@ function taskDisply(elem) {
     const title_edit_button = document.createElement("button");
     title_edit_button.innerText = "編集";
     title_edit_button.className = "title_button";
+    title_edit_button.id = "title_button";
 
     //内容の要素
+    const detail = document.createElement("p");
+    detail.innerText = "";
+    detail.className = "detail";
     const detail_edit_button = document.createElement("button");
     detail_edit_button.innerText = "編集";
     detail_edit_button.className = "detail_button";
+    detail_edit_button.id = "detail_button";
 
     //経過時間の要素
     const time = document.createElement("p");
@@ -179,6 +181,7 @@ function taskDisply(elem) {
 
     childtitle.appendChild(title);
     childtitle.appendChild(title_edit_button);
+    childdetail.appendChild(detail);
     childdetail.appendChild(detail_edit_button);
     childtime.appendChild(time);
     childdate.appendChild(date);
@@ -188,7 +191,64 @@ function taskDisply(elem) {
     taskwindow.appendChild(childtime);
     taskwindow.appendChild(childdate);
 
+
+
+        //タスク内容の編集
+        document.getElementById("detail_button").onclick = function(){
+            childdetail.removeChild(detail_edit_button);
+            childdetail.removeChild(detail);
+            const formItem = document.createElement('form');
+            formItem.innerHTML = '<input type="text">';
+            childdetail.appendChild(formItem);
+    
+            formItem.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const detail = document.createElement("p");
+                detail.innerText = e.target[0].value;
+                detail.className = "detail";
+                const detail_edit_button = document.createElement("button");
+                detail_edit_button.innerText = "編集";
+                detail_edit_button.className = "detail_button";
+                detail_edit_button.id = "detail_button";
+                childdetail.appendChild(detail);
+                childdetail.appendChild(detail_edit_button);
+                //elem.dataset.date = e.target[0].value;
+                formItem.parentNode.removeChild(formItem);
+            })
+        }
+
 }; 
+console.log(document.getElementById("title_button"));
+//タスクタイトルの編集
+if(document.getElementById("title_button")){
+    console.log(document.getElementById("title_button"));
+    document.getElementById("title_button").onclick = function(){
+        console.log("aaa");
+        const tasktitle = document.getElementById('taskTitle');  
+        const title_edit_button = document.getElementById('title_button');  
+        const title = document.getElementById('title');
+        tasktitle.removeChild(title_edit_button);
+        tasktitle.removeChild(title);
+        const formItem = document.createElement('form');
+        formItem.innerHTML = '<input type="text">';
+        tasktitle.appendChild(formItem);
+
+        formItem.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = document.createElement("p");
+            title.innerText = e.target[0].value;
+            title.className = "title";
+            const title_edit_button = document.createElement("button");
+            title_edit_button.innerText = "編集";
+            title_edit_button.className = "title_button";
+            title_edit_button.id = "title_button";
+            tasktitle.appendChild(title);
+            tasktitle.appendChild(title_edit_button);
+            //elem.dataset.date = e.target[0].value;
+            formItem.parentNode.removeChild(formItem);
+        })
+    }
+}
 
 //タスク経過時間の計算
 var t_count = 0 ;
