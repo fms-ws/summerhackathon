@@ -97,6 +97,15 @@ body{
 	transform : translate(-50%, -50%);
 	text-align: center;
 }
+.text_box{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform : translate(-50%, -50%);
+	transform : translate(-50%, -50%);
+    text-align: center;
+    border: solid 2px  #000000;
+}
 
 .taskDetail{
     position: relative;
@@ -104,7 +113,27 @@ body{
 
 .detail_button{
 	position: absolute;
-	top: 90%;
+	top: 95%;
+	left: 50%;
+	-webkit-transform : translate(-50%, -50%);
+	transform : translate(-50%, -50%);
+	text-align: center;
+}
+
+
+.text_area{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform : translate(-50%, -50%);
+	transform : translate(-50%, -50%);
+    text-align: center;
+    border: solid 2px  #000000;
+}
+
+.text_submit{
+	position: absolute;
+	top: 95%;
 	left: 50%;
 	-webkit-transform : translate(-50%, -50%);
 	transform : translate(-50%, -50%);

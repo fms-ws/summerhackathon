@@ -157,6 +157,7 @@ function taskDisply(elem) {
     const title = document.createElement("p");
     title.innerText = elem.innerText;
     title.className = "title";
+    title.id = "title";
     const title_edit_button = document.createElement("button");
     title_edit_button.innerText = "編集";
     title_edit_button.className = "title_button";
@@ -166,6 +167,7 @@ function taskDisply(elem) {
     const detail = document.createElement("p");
     detail.innerText = "";
     detail.className = "detail";
+    detail.id = "detail";
     const detail_edit_button = document.createElement("button");
     detail_edit_button.innerText = "編集";
     detail_edit_button.className = "detail_button";
@@ -191,62 +193,83 @@ function taskDisply(elem) {
     taskwindow.appendChild(childtime);
     taskwindow.appendChild(childdate);
 
+    title_button_click();
+    detail_button_click();
 
+}; 
 
-        //タスク内容の編集
-        document.getElementById("detail_button").onclick = function(){
-            childdetail.removeChild(detail_edit_button);
-            childdetail.removeChild(detail);
+//タスクタイトルの編集
+function title_button_click(){
+    if(document.getElementById("title_button")){
+        document.getElementById("title_button").onclick = function(){
+            const tasktitle = document.getElementById('taskTitle');  
+            const title_edit_button = document.getElementById('title_button');  
+            const title = document.getElementById('title');
+            tasktitle.removeChild(title_edit_button);
+            tasktitle.removeChild(title);
             const formItem = document.createElement('form');
-            formItem.innerHTML = '<input type="text">';
-            childdetail.appendChild(formItem);
-    
+            formItem.innerHTML = '<input type="text" class="text_box">';
+            tasktitle.appendChild(formItem);
+
             formItem.addEventListener('submit', (e) => {
                 e.preventDefault();
+                const title = document.createElement("p");
+                title.innerText = e.target[0].value;
+                title.className = "title";
+                title.id = "title";
+                const title_edit_button = document.createElement("button");
+                title_edit_button.innerText = "編集";
+                title_edit_button.className = "title_button";
+                title_edit_button.id = "title_button";
+                tasktitle.appendChild(title);
+                tasktitle.appendChild(title_edit_button);
+                //elem.dataset.date = e.target[0].value;
+                formItem.parentNode.removeChild(formItem);
+                title_button_click();
+            })
+        }
+    }
+}
+
+//タスク内容の編集
+function detail_button_click(){
+    if(document.getElementById("detail_button")){
+        document.getElementById("detail_button").onclick = function(){
+            const taskdetail = document.getElementById('taskDetail');  
+            const detail_edit_button = document.getElementById('detail_button');  
+            const detail = document.getElementById('detail');
+            taskdetail.removeChild(detail_edit_button);
+            taskdetail.removeChild(detail);
+            const form_text_area = document.createElement('form');
+            form_text_area.id = "form_text_area";
+            form_text_area.innerHTML = '<textarea id="text_area" class="text_area" name="t_name" cols="60" rows="30" wrap="hard">';
+            taskdetail.appendChild(form_text_area);
+            const form_text_submit = document.createElement('form');
+            form_text_submit.innerHTML = '<input class="text_submit" type="submit" value="完了する">';
+            taskdetail.appendChild(form_text_submit);
+
+            form_text_submit.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const form_text_area = document.getElementById("form_text_area");
+                const text_area = document.getElementById("text_area");
+                console.log(text_area.value);
+                console.log(form_text_submit);
                 const detail = document.createElement("p");
-                detail.innerText = e.target[0].value;
+                detail.innerText = text_area.value;
                 detail.className = "detail";
+                detail.id = "detail";
                 const detail_edit_button = document.createElement("button");
                 detail_edit_button.innerText = "編集";
                 detail_edit_button.className = "detail_button";
                 detail_edit_button.id = "detail_button";
-                childdetail.appendChild(detail);
-                childdetail.appendChild(detail_edit_button);
+                taskdetail.appendChild(detail);
+                taskdetail.appendChild(detail_edit_button);
                 //elem.dataset.date = e.target[0].value;
-                formItem.parentNode.removeChild(formItem);
+                taskdetail.removeChild(form_text_submit);
+                taskdetail.removeChild(form_text_area);
+                detail_button_click();
             })
         }
-
-}; 
-console.log(document.getElementById("title_button"));
-//タスクタイトルの編集
-if(document.getElementById("title_button")){
-    console.log(document.getElementById("title_button"));
-    document.getElementById("title_button").onclick = function(){
-        console.log("aaa");
-        const tasktitle = document.getElementById('taskTitle');  
-        const title_edit_button = document.getElementById('title_button');  
-        const title = document.getElementById('title');
-        tasktitle.removeChild(title_edit_button);
-        tasktitle.removeChild(title);
-        const formItem = document.createElement('form');
-        formItem.innerHTML = '<input type="text">';
-        tasktitle.appendChild(formItem);
-
-        formItem.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const title = document.createElement("p");
-            title.innerText = e.target[0].value;
-            title.className = "title";
-            const title_edit_button = document.createElement("button");
-            title_edit_button.innerText = "編集";
-            title_edit_button.className = "title_button";
-            title_edit_button.id = "title_button";
-            tasktitle.appendChild(title);
-            tasktitle.appendChild(title_edit_button);
-            //elem.dataset.date = e.target[0].value;
-            formItem.parentNode.removeChild(formItem);
-        })
     }
 }
 
