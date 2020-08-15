@@ -152,7 +152,7 @@ body{
     background-image: url("./uyuni_01.jpg");
     background-size: cover;
     font-family: "Times New Roman";
-    animation  : change-bgimage 20s infinite;
+    animation  : change-bgimage 60s infinite;
 }  
 
 @keyframes change-bgimage {
