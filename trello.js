@@ -52,7 +52,7 @@ document.getElementsByTagName('button')[1].remove();
 function addFormElement(id) {
     if(id === "sample-board-1"){
     const formItem = document.createElement('form');
-  
+    
     formItem.innerHTML = '<input type="text">';  //タスクを追加するための入力ボックスを作成
     kanban.addForm(id, formItem);  //入力ボックスをボードに追加
   
@@ -75,15 +75,23 @@ function addFormElement(id) {
     }) 
 }
 }   
-
-
+//クリック時に振るID
+let countId=0;
 //タスク削除用の関数
 var clickCount = 0 ;
 function removeFormElement(elem) {
-    console.log(elem);
-    
+    //console.log(elem);
+
+    //elem.setAttribute("id",conutId);
     // シングルクリックの場合
     if( !clickCount) {
+        if(elem.id===""){
+            elem.setAttribute("id",countId);
+            console.log(elem.id);
+        }else{
+            console.log("ok");
+        }
+        countId++;
         ++clickCount ;
         taskDisply(elem);
         setTimeout( function() {
@@ -179,4 +187,14 @@ function startwatch(el, starttime){
             timecount();
         },1000);
     }
+}
+
+//マウスホバー
+const elem=document.getElementsByClassName("kanban-item")
+if(elem === undefined ){
+    console.log("null");
+}else{
+    console.log("ok");
+    console.log(elem.dataset.id);
+    //console.log(elem);
 }
