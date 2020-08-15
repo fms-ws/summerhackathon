@@ -308,7 +308,7 @@ function startwatch(el){
         //console.log(el);
         //console.log(hour+':'+min+':'+sec);
         //経過時間で警告
-        if(sec===5){
+        if(sec===10){
             sound();
         }
         task_elem.dataset.times=hour+':'+min+':'+sec;
