@@ -30,12 +30,6 @@ h1 {
     text-align: center;
   }
 
-body{
-    background-image: url("./uyuni_01.jpg");
-    background-size: cover;
-    font-family: "Times New Roman";
-}  
-
 .taskboard{
     float: left;
 }
@@ -153,3 +147,24 @@ body{
 	transform : translate(-50%, -50%);
 	text-align: center;
 }
+
+body{
+    background-image: url("./uyuni_01.jpg");
+    background-size: cover;
+    font-family: "Times New Roman";
+    animation  : change-bgimage 20s infinite;
+}  
+
+@keyframes change-bgimage {
+    25% {
+      background-image: url("./uyuni_01.jpg");
+    }
+    50% {
+      background-image: url("./original.jpg");
+    }
+    75% {
+      background-image: url("./CEVcW-hUsAAXsO_.jpg");
+    }
+    100% {
+      background-image: url("./4a473835d4749a8f43ad2172e73633a0db7dc218.jpeg");
+    }
