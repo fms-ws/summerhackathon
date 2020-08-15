@@ -216,7 +216,7 @@ function title_button_click(){
             tasktitle.removeChild(title_edit_button);
             tasktitle.removeChild(title);
             const formItem = document.createElement('form');
-            formItem.innerHTML = '<input type="text" class="text_box">';
+            formItem.innerHTML = '<input type="text" class="text_box" value='+title.innerText+'>';
             tasktitle.appendChild(formItem);
 
             formItem.addEventListener('submit', (e) => {
@@ -250,7 +250,7 @@ function detail_button_click(){
             taskdetail.removeChild(detail);
             const form_text_area = document.createElement('form');
             form_text_area.id = "form_text_area";
-            form_text_area.innerHTML = '<textarea id="text_area" class="text_area" name="t_name" cols="60" rows="30" wrap="hard">';
+            form_text_area.innerHTML = '<textarea id="text_area" class="text_area" name="t_name" cols="60" rows="30" wrap="hard">'+detail.innerText;
             taskdetail.appendChild(form_text_area);
             const form_text_submit = document.createElement('form');
             form_text_submit.innerHTML = '<input class="text_submit" type="submit" value="完了する">';
@@ -282,22 +282,17 @@ function detail_button_click(){
 }
 
 //タスク経過時間の計算
-var t_count = 0 ;
-if(t_count===0){
     var hour = "0";
     var min = "0";
     var sec = "0";
-}
 function dargstart(el, target){
     var starttime;
     if(target.parentElement.getAttribute('data-id')=='sample-board-2'){
         starttime = Date.now();
         //console.log(el);
         startwatch(el,starttime);
-        t_count=1;
     }else if(target.parentElement.getAttribute('data-id')=='sample-board-3'){
         clearTimeout(timerId);
-        t_count=0;
     }
 }
 
