@@ -6,8 +6,8 @@ const defaultBoards = [
         "class": "task",
         "dragTo": ['sample-board-2', 'sample-board-3'], 
         "item": [
-            { "title": "報告書の作成", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" "},
-            { "title": "14時から打ち合わせ" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" "}
+            { "title": "報告書の作成", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" ", "retime": "0"},
+            { "title": "14時から打ち合わせ" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" ", "retime": "0"}
         ]
     },
   
@@ -15,14 +15,14 @@ const defaultBoards = [
         "id": "sample-board-2",
         "title": "進行中",
         "class": "progress",
-        "item": [{ "title": "○○案の企画書作成" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" "}]
+        "item": [{ "title": "○○案の企画書作成" , "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" ", "retime": "0"}]
     },
   
     {
         "id": "sample-board-3",
         "title": "完了",
         "class": "done",
-        "item": [{"title": "日報の提出", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" "}]
+        "item": [{"title": "日報の提出", "date":"タスク追加日 ： 2020年8月15日 土曜日 12時41分","detail":" ", "st":" ", "times":"0:0:0","end":" ", "retime": "0"}]
     }
 ];
    
@@ -70,7 +70,7 @@ function addFormElement(id) {
         var week_ja= new Array("日","月","火","水","木","金","土");   
 
         kanban.addElement(id, {"title": e.target[0].value, "date": "タスク追加日 ： "+year+"年"+month+"月"+day+"日 "+week_ja[week]+"曜日 "+hour+"時"+minute+"分",
-         "detail":" ", "st":" ", "times":"0:0:0","end":" "}); //入力された文字列をタスクとして登録
+         "detail":" ", "st":" ", "times":"0:0:0","end":" ", "retime": "0"}); //入力された文字列をタスクとして登録
         formItem.parentNode.removeChild(formItem); //入力ボックスを非表示にするために削除
     }) 
 }
@@ -179,8 +179,14 @@ function taskDisply(elem) {
 
     //経過時間の要素
     const time = document.createElement("p");
+    time.className = "time";
     updateTime(time,elem);
     time.innerText = "タスク経過時間 : "+elem.dataset.times;
+    
+    const stop_button = document.createElement("button");
+    stop_button.innerText = "stop";
+    stop_button.className = "stop_button";
+    stop_button.id = "stop_button";
 
     //締め切りの要素
     const deadLineText = document.createElement("span");
@@ -223,6 +229,7 @@ function taskDisply(elem) {
     childtitle.appendChild(title);
     childtitle.appendChild(title_edit_button);
     childtime.appendChild(time);
+    childtime.appendChild(stop_button);
     childdate.appendChild(date);
     childdetail.appendChild(detail_header);
     childdetail.appendChild(detail);
@@ -250,6 +257,7 @@ function taskDisply(elem) {
     }
     title_button_click(elem);
     detail_button_click(elem);
+    stop_button_click(elem);
 
 }; 
 
@@ -330,6 +338,27 @@ function detail_button_click(elem){
     }
 }
 
+
+//経過時間のstop
+function stop_button_click(elem){
+    if(document.getElementById("stop_button")){
+        document.getElementById("stop_button").onclick = function(){
+            const stop_button = document.getElementById('stop_button');
+            const stop_elem = document.getElementById(elem.id);
+            if(stop_button.innerText === "stop"){
+                stop_button.innerText = "restart";
+                clearTimeout(stop_elem.dataset.end);
+                stop_elem.dataset.retime = Date.now() - parseInt(stop_elem.dataset.st) + parseInt(stop_elem.dataset.retime);
+            }else{
+                stop_button.innerText = "stop";
+                stop_elem.dataset.st=Date.now();
+                startwatch(elem);
+            }
+            stop_button_click(elem);
+        }
+    }
+}
+
 //タスク経過時間の計算
 var hour = "0";
 var min = "0";
@@ -364,7 +393,7 @@ function startwatch(el){
     }
     function timecount(){
         task_elem.dataset.end = setTimeout(function(){
-            time = Date.now() - task_elem.dataset.st;
+            time = Date.now() - parseInt(task_elem.dataset.st) + parseInt(task_elem.dataset.retime);
             timeConversion();
             console.log(task_elem.innerText+': '+task_elem.dataset.times);
             timecount();
@@ -374,7 +403,7 @@ function startwatch(el){
 function updateTime(task, elem){
     const task_elem = document.getElementById(elem.id);
     windowStatus=setTimeout(function(){
-        task.innerText="タスク経過時間 : "+task_elem.dataset.times;
+        task.innerText="タスク経過時間 : " + task_elem.dataset.times;
         updateTime(task,elem);
     },1000);
 }

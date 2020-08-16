@@ -54,7 +54,18 @@ h1 {
     color: #000000;
     text-align: center;
     border: solid 3px  #000000;
+    position: relative;
     border-bottom: 0px;
+}
+
+
+.stop_button{
+    position: absolute;
+	top: 50%;
+	left: 90%;
+	-webkit-transform : translate(-50%, -50%);
+	transform : translate(-50%, -50%);
+    text-align: center;
 }
 
 .taskDate{
@@ -160,6 +171,8 @@ h1 {
 	transform : translate(-50%, -50%);
 	text-align: center;
 }
+
+
 
 body{
     background-image: url("./uyuni_01.jpg");
