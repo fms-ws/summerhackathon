@@ -230,7 +230,7 @@ function taskDisply(elem) {
         deadLineHour.appendChild(deadLineHourOption[i]);
     }
     deadLine.appendChild(deadLineMinute);
-    for(let i=0;i<59;i++){
+    for(let i=0;i<60;i++){
         deadLineMinute.appendChild(deadLineMinuteOption[i]);
     }
 
@@ -240,7 +240,10 @@ function taskDisply(elem) {
     taskwindow.appendChild(deadLine);
     taskwindow.appendChild(childdetail);
     
-
+    var select = document.getElementById('deadLineHour');
+    select.onchange = function(){
+        select.options[select.value].selected=true;
+    }
     title_button_click(elem);
     detail_button_click(elem);
 
@@ -374,3 +377,4 @@ function sound(){
     //document.getElementById( 'sound-file' ).play() ;
     //alert("休憩したら？？");
 }
+
