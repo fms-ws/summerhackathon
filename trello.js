@@ -396,7 +396,7 @@ function startwatch(el){
         var min = Math.floor((time/60/1000)%60);
         var sec = Math.floor((time/1000)%60);
         //経過時間で警告
-        if(sec===5 && minute ===0 && hour ===0){
+        if(sec===5 && min ===0 && hour ===0){
             sound();
         }
         task_elem.dataset.times=hour+':'+min+':'+sec;
