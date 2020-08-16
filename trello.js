@@ -251,15 +251,25 @@ function taskDisply(elem) {
     taskwindow.appendChild(deadLine);
     taskwindow.appendChild(childdetail);
     
-    var select = document.getElementById('deadLineHour');
-    select.onchange = function(){
-        select.options[select.value].selected=true;
-    }
     title_button_click(elem);
     detail_button_click(elem);
     stop_button_click(elem);
+    deadLineCheck(elem);
 
 }; 
+//デッドラインの編集
+function deadLineCheck(elem){
+    if(document.getElementById("deadLineHour") || document.getElementById("deadLineMinute")){
+        document.getElementById("deadLineHour").onchange=()=>{
+            elem.dataset.deadLineHour=document.getElementById("deadLineHour").value;
+            elem.dataset.deadLineMinute=document.getElementById("deadLineMinute").value;
+        }
+        document.getElementById("deadLineMinute").onchange=()=>{
+            elem.dataset.deadLineHour=document.getElementById("deadLineHour").value;
+            elem.dataset.deadLineMinute=document.getElementById("deadLineMinute").value;
+        }
+    }   
+}
 
 //タスクタイトルの編集
 function title_button_click(elem){
