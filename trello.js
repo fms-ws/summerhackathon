@@ -396,7 +396,7 @@ function startwatch(el){
         var min = Math.floor((time/60/1000)%60);
         var sec = Math.floor((time/1000)%60);
         //経過時間で警告
-        if(sec===10){
+        if(sec===5 && minute ===0 && hour ===0){
             sound();
         }
         task_elem.dataset.times=hour+':'+min+':'+sec;
@@ -421,7 +421,7 @@ function updateTime(task, elem){
 
 function sound(){
     //音なるので鳴らしたいとき、アラートしたもらいたいときは↓のコメントアウト外す。
-    //document.getElementById( 'sound-file' ).play() ;
-    //alert("休憩したら？？");
+    document.getElementById( 'sound-file' ).play() ;
+    alert("休憩したら？？");
 }
 
