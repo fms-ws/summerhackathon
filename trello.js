@@ -75,6 +75,7 @@ function addFormElement(id) {
     }) 
 }
 
+var windowStatus;
 
 //タスク削除用の関数
 var clickCount = 0 ;
@@ -95,6 +96,7 @@ function removeFormElement(elem) {
                 taskwindow.removeChild(taskdate);
                 taskwindow.removeChild(deadLine);
                 taskwindow.removeChild(taskdetail);
+                clearTimeout(windowStatus);
             }
             else{
                 taskDisply(elem);
@@ -123,6 +125,7 @@ function removeFormElement(elem) {
             taskwindow.removeChild(taskdate);
             taskwindow.removeChild(deadLine);
             taskwindow.removeChild(taskdetail);
+            clearTimeout(windowStatus);
         }
         kanban.removeElement(elem);
         clickCount = 0 ;
@@ -176,6 +179,7 @@ function taskDisply(elem) {
 
     //経過時間の要素
     const time = document.createElement("p");
+    updateTime(time,elem);
     time.innerText = "タスク経過時間 : "+elem.dataset.times;
 
     //締め切りの要素
@@ -336,7 +340,6 @@ function dargstart(el, target){
     if(target.parentElement.getAttribute('data-id')=='sample-board-2'){
         starttime = Date.now();
         task_elem.dataset.st=starttime;
-        console.log(el);
         startwatch(el);
     }else if(target.parentElement.getAttribute('data-id')=='sample-board-3'){
         clearTimeout(task_elem.dataset.end);
@@ -353,8 +356,6 @@ function startwatch(el){
         var hour = Math.floor(time/1000/60/60);
         var min = Math.floor((time/60/1000)%60);
         var sec = Math.floor((time/1000)%60);
-        //console.log(el);
-        //console.log(hour+':'+min+':'+sec);
         //経過時間で警告
         if(sec===10){
             sound();
@@ -369,6 +370,13 @@ function startwatch(el){
             timecount();
         },1000);
     }
+}
+function updateTime(task, elem){
+    const task_elem = document.getElementById(elem.id);
+    windowStatus=setTimeout(function(){
+        task.innerText="タスク経過時間 : "+task_elem.dataset.times;
+        updateTime(task,elem);
+    },1000);
 }
 
 
